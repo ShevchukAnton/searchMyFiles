@@ -19,10 +19,14 @@ public class MainFrame extends JFrame{
         panel.add(searchInput);
 
         JButton search = new JButton("SEARCH");
+        search.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        search.setIcon(new ImageIcon("src/main/resources/search_icon.png"));
         search.setVerticalTextPosition(AbstractButton.CENTER);
         panel.add(search);
 
         JButton folder = new JButton("FOLDER");
+        folder.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        folder.setIcon(new ImageIcon("src/main/resources/folder_icon.png"));
         folder.setVerticalTextPosition(AbstractButton.CENTER);
         panel.add(folder);
 
