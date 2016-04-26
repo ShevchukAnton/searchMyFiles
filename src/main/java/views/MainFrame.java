@@ -26,7 +26,6 @@ public class MainFrame extends JFrame{
         JButton search = new JButton("SEARCH");
         search.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         search.setIcon(new ImageIcon("src/main/resources/search_icon.png"));
-        search.setVerticalTextPosition(AbstractButton.CENTER);
         c.weightx = 0.005;
         c.gridx = 1;
         c.gridy = 0;
@@ -41,16 +40,34 @@ public class MainFrame extends JFrame{
         JButton folder = new JButton("FOLDER");
         folder.setFont(new Font("Times New Roman", Font.PLAIN, 20));
         folder.setIcon(new ImageIcon("src/main/resources/folder_icon.png"));
-        folder.setVerticalTextPosition(AbstractButton.CENTER);
-        search.setVerticalTextPosition(AbstractButton.CENTER);
         c.weightx = 0.005;
         c.gridx = 1;
         c.gridy = 1;
         cont.add(folder, c);
 
+        JCheckBox enableFolder = new JCheckBox();
+        enableFolder.setLocation(0, 215);
+        enableFolder.setSize(20, 20);
+        mainFrame.add(enableFolder);
+
+        JTextField checkBoxLabel = new JTextField();
+        checkBoxLabel.setText("Search in :");
+        checkBoxLabel.setSize(80, enableFolder.getHeight());
+        checkBoxLabel.setEditable(false);
+        checkBoxLabel.setLocation(20, 215);
+        mainFrame.add(checkBoxLabel);
+
+        JTextField outputField = new JTextField();
+        outputField.setLocation(0, 300);
+        outputField.setSize(550, 150);
+        outputField.setBackground(new Color(255, 255, 255));
+        outputField.setEditable(false);
+        mainFrame.add(outputField);
+
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.add(cont);
         mainFrame.setPreferredSize(new Dimension(550, 450));
+        mainFrame.setResizable(false);
         mainFrame.pack();
         mainFrame.setVisible(true);
     }
