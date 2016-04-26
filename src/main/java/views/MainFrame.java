@@ -50,12 +50,17 @@ public class MainFrame extends JFrame{
         enableFolder.setSize(20, 20);
         mainFrame.add(enableFolder);
 
-        JTextField checkBoxLabel = new JTextField();
-        checkBoxLabel.setText("Search in :");
+        JTextField checkBoxLabel = createJTextFieldWithEmptyBorders("Search in :");
         checkBoxLabel.setSize(80, enableFolder.getHeight());
         checkBoxLabel.setEditable(false);
         checkBoxLabel.setLocation(20, 215);
         mainFrame.add(checkBoxLabel);
+
+        JTextField outputLabel = createJTextFieldWithEmptyBorders("Results :");
+        outputLabel.setEditable(false);
+        outputLabel.setSize(70, 20);
+        outputLabel.setLocation(0, 280);
+        mainFrame.add(outputLabel);
 
         JTextField outputField = new JTextField();
         outputField.setLocation(0, 300);
@@ -72,5 +77,10 @@ public class MainFrame extends JFrame{
         mainFrame.setVisible(true);
     }
 
-
+    private static JTextField createJTextFieldWithEmptyBorders(String text) {
+        JTextField field = new JTextField();
+        field.setBorder(BorderFactory.createEmptyBorder());
+        field.setText(text);
+        return field;
+    }
 }
