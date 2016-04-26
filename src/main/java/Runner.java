@@ -1,4 +1,4 @@
-import views.Inputs;
+import views.Elements;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ public class Runner {
 
     public static void main(String[] args) {
         final JFrame app = new JFrame();
-        Inputs elements = new Inputs();
+        Elements elements = new Elements();
         app.add(elements.addElements());
 
         SwingUtilities.invokeLater(new Runnable() {

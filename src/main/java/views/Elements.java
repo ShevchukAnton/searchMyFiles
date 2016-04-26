@@ -2,12 +2,17 @@ package views;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  * @author anton
  * @date 26.04.16.
  */
-public class Inputs {
+public class Elements extends Component implements ActionListener {
+
+    private JTextField folderInput;
 
     public Container addElements() {
 
@@ -25,7 +30,7 @@ public class Inputs {
         search.setLocation(400, 100);
         cont.add(search);
 
-        JTextField folderInput = new JTextField();
+        folderInput = new JTextField();
         folderInput.setSize(400, 30);
         folderInput.setLocation(0, 200);
         cont.add(folderInput);
@@ -35,7 +40,8 @@ public class Inputs {
         folder.setIcon(new ImageIcon("src/main/resources/folder_icon.png"));
         folder.setSize(150, 30);
         folder.setLocation(400, 200);
-        folder.setEnabled(false);
+        folder.addActionListener(this);
+        //folder.setEnabled(false);
         cont.add(folder);
 
         JCheckBox enableFolder = new JCheckBox();
@@ -70,5 +76,17 @@ public class Inputs {
         field.setBorder(BorderFactory.createEmptyBorder());
         field.setText(text);
         return field;
+    }
+
+    public void actionPerformed(ActionEvent actionEvent) {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        chooser.setDialogTitle("Select Folder");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            folderInput.setText(chooser.getSelectedFile().getAbsolutePath());
+        }
     }
 }
