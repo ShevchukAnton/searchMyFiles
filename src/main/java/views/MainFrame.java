@@ -1,18 +1,22 @@
-import views.Elements;
+package views;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
  * @author anton
- * @date 26.04.16.
+ * @date 27.04.16.
  */
-public class Runner {
+public class MainFrame {
 
-    public static void main(String[] args) {
+    public MainFrame() {
         final JFrame app = new JFrame("Search My Files");
-        Elements elements = new Elements();
-        app.add(elements.addElements());
+        TextFields textFields = new TextFields();
+        Buttons buttons = new Buttons();
+        MainContainer container = new MainContainer();
+        container.addToContainer(buttons.getButtons());
+        container.addToContainer(textFields.getFields());
+        app.add(container.getContainer());
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
