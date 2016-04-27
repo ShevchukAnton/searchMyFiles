@@ -10,7 +10,7 @@ import java.awt.*;
 public class Runner {
 
     public static void main(String[] args) {
-        final JFrame app = new JFrame();
+        final JFrame app = new JFrame("Search My Files");
         Elements elements = new Elements();
         app.add(elements.addElements());
 

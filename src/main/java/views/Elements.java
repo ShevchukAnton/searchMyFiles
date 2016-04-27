@@ -24,7 +24,7 @@ public class Elements extends Component implements ActionListener {
         cont.add(searchInput);
 
         JButton search = new JButton("SEARCH");
-        search.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+        search.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         search.setIcon(new ImageIcon("src/main/resources/search_icon.png"));
         search.setSize(150, 30);
         search.setLocation(400, 100);
@@ -33,16 +33,16 @@ public class Elements extends Component implements ActionListener {
         folderInput = new JTextField();
         folderInput.setSize(400, 30);
         folderInput.setLocation(0, 200);
+        folderInput.setEnabled(false);
         cont.add(folderInput);
 
-        JButton folder = new JButton("FOLDER");
-        folder.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-        folder.setIcon(new ImageIcon("src/main/resources/folder_icon.png"));
-        folder.setSize(150, 30);
-        folder.setLocation(400, 200);
-        folder.addActionListener(this);
-        //folder.setEnabled(false);
-        cont.add(folder);
+        JButton folderSearch = new JButton("SEARCH");
+        folderSearch.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+        folderSearch.setIcon(new ImageIcon("src/main/resources/search_icon.png"));
+        folderSearch.setSize(150, 30);
+        folderSearch.setLocation(400, 200);
+        folderSearch.setEnabled(false);
+        cont.add(folderSearch);
 
         JCheckBox enableFolder = new JCheckBox();
         enableFolder.setLocation(0, 175);
@@ -54,6 +54,13 @@ public class Elements extends Component implements ActionListener {
         checkBoxLabel.setEditable(false);
         checkBoxLabel.setLocation(20, 175);
         cont.add(checkBoxLabel);
+
+        JButton folder = new JButton("Folder");
+        folder.setLocation(100, 175);
+        folder.setSize(80, 25);
+        folder.addActionListener(this);
+        folder.setEnabled(false);
+        cont.add(folder);
 
         JTextField outputLabel = createJTextFieldWithEmptyBorders("Results :");
         outputLabel.setEditable(false);
