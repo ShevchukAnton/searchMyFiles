@@ -1,28 +1,44 @@
 package models;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author anton
  * @date 26.04.16.
  */
 public class Search {
+    private List<String> paths;
 
-    private String path;
-    private String fileName;
-    private ArrayList<String> searchResult;
 
-    Search(String fileName) {
-        this.fileName = fileName;
+    public Search() {
+        paths = new ArrayList<String>();
     }
 
-    Search(String fileName, String path) {
-        this.fileName = fileName;
-        this.path = path;
+    public List<String> getPaths() {
+        return paths;
     }
 
-    public ArrayList<String> searchFile() {
-
-        return searchResult;
+    public void find(String name, String dir) {
+        if (name == null) {
+            throw new IllegalArgumentException("Name cannot be null.");
+        }
+        File fileDir = new File(dir);
+        if (!fileDir.exists()) {
+            throw new IllegalArgumentException("Directory does not exist.");
+        }
+        File[] files = fileDir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    find(name, file.toString());
+                } else if (name.equalsIgnoreCase(file.getName())) {
+                    paths.add(file.getAbsolutePath());
+                }
+            }
+        }
     }
+
+
 }
