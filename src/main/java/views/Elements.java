@@ -12,7 +12,7 @@ import java.io.File;
  */
 public class Elements extends Component implements ActionListener {
 
-    private JTextField folderInput;
+    private JTextField selectedFolder;
 
     public Container addElements() {
 
@@ -20,19 +20,19 @@ public class Elements extends Component implements ActionListener {
 
         JTextField searchInput = new JTextField();
         searchInput.setSize(400, 30);
-        searchInput.setLocation(0, 100);
+        searchInput.setLocation(0, 50);
         cont.add(searchInput);
 
         JButton search = new JButton("SEARCH");
         search.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         search.setIcon(new ImageIcon("src/main/resources/search_icon.png"));
         search.setSize(150, 30);
-        search.setLocation(400, 100);
+        search.setLocation(400, 50);
         cont.add(search);
 
-        folderInput = new JTextField();
+        JTextField folderInput = new JTextField();
         folderInput.setSize(400, 30);
-        folderInput.setLocation(0, 200);
+        folderInput.setLocation(0, 150);
         folderInput.setEnabled(false);
         cont.add(folderInput);
 
@@ -40,37 +40,56 @@ public class Elements extends Component implements ActionListener {
         folderSearch.setFont(new Font("Times New Roman", Font.PLAIN, 18));
         folderSearch.setIcon(new ImageIcon("src/main/resources/search_icon.png"));
         folderSearch.setSize(150, 30);
-        folderSearch.setLocation(400, 200);
+        folderSearch.setLocation(400, 150);
         folderSearch.setEnabled(false);
         cont.add(folderSearch);
 
         JCheckBox enableFolder = new JCheckBox();
-        enableFolder.setLocation(0, 175);
+        enableFolder.setLocation(0, 125);
         enableFolder.setSize(20, 20);
         cont.add(enableFolder);
 
         JTextField checkBoxLabel = createJTextFieldWithEmptyBorders("Search in :");
         checkBoxLabel.setSize(80, enableFolder.getHeight());
         checkBoxLabel.setEditable(false);
-        checkBoxLabel.setLocation(20, 175);
+        checkBoxLabel.setLocation(20, 125);
         cont.add(checkBoxLabel);
 
         JButton folder = new JButton("Folder");
-        folder.setLocation(100, 175);
-        folder.setSize(80, 25);
+        folder.setIcon(new ImageIcon("src/main/resources/folder_icon.png"));
+        folder.setLocation(100, 122);
+        folder.setSize(100, 25);
         folder.addActionListener(this);
         folder.setEnabled(false);
         cont.add(folder);
 
+        selectedFolder = createJTextFieldWithEmptyBorders(null);
+        selectedFolder.setEditable(false);
+        selectedFolder.setLocation(200, 125);
+        selectedFolder.setSize(350, 20);
+        cont.add(selectedFolder);
+
         JTextField outputLabel = createJTextFieldWithEmptyBorders("Results :");
         outputLabel.setEditable(false);
         outputLabel.setSize(70, 20);
-        outputLabel.setLocation(0, 280);
+        outputLabel.setLocation(0, 210);
         cont.add(outputLabel);
 
+        JButton copyPath = new JButton("Copy Path");
+        copyPath.setLocation(310, 210);
+        copyPath.setSize(110, 20);
+        copyPath.setEnabled(false);
+        cont.add(copyPath);
+
+        JButton openFolder = new JButton("Open Folder");
+        openFolder.setLocation(425, 210);
+        openFolder.setSize(125, 20);
+        openFolder.setEnabled(false);
+        cont.add(openFolder);
+
         JTextField outputField = new JTextField();
-        outputField.setLocation(0, 300);
-        outputField.setSize(550, 150);
+        outputField.setLocation(0, 230);
+        outputField.setSize(550, 220);
         outputField.setBackground(new Color(255, 255, 255));
         outputField.setEditable(false);
         cont.add(outputField);
@@ -80,6 +99,9 @@ public class Elements extends Component implements ActionListener {
 
     private static JTextField createJTextFieldWithEmptyBorders(String text) {
         JTextField field = new JTextField();
+        if (text == null) {
+            field.setText("");
+        }
         field.setBorder(BorderFactory.createEmptyBorder());
         field.setText(text);
         return field;
@@ -93,7 +115,7 @@ public class Elements extends Component implements ActionListener {
         chooser.setAcceptAllFileFilterUsed(false);
 
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            folderInput.setText(chooser.getSelectedFile().getAbsolutePath());
+            selectedFolder.setText(chooser.getSelectedFile().getAbsolutePath());
         }
     }
 }
