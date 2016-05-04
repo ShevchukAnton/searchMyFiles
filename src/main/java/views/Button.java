@@ -9,7 +9,7 @@ import java.awt.*;
  */
 public class Button extends JButton {
 
-    public Button(String label, Point location, Point size, Font font, ImageIcon icon, boolean isEnabled) {
+    Button(String label, Point location, Point size, Font font, ImageIcon icon, boolean isEnabled) {
 
         if (font != null) {
             super.setFont(font);

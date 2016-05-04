@@ -24,7 +24,12 @@ public class Search {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null.");
         }
-        File fileDir = new File(dir);
+        File fileDir;
+        if (dir == null) {
+            fileDir = new File(System.getProperty("user.home"));
+        } else {
+            fileDir = new File(dir);
+        }
         if (!fileDir.exists()) {
             throw new IllegalArgumentException("Directory does not exist.");
         }

@@ -10,8 +10,8 @@ import java.util.ArrayList;
  */
 public class TextField extends JTextField{
 
-    public TextField(String label, Point location, Point size, boolean isEmptyBorder, boolean isEnabled, boolean isEditable,
-                     Color background) {
+    TextField(String label, Point location, Point size, boolean isEmptyBorder, boolean isEnabled, boolean isEditable,
+              Color background) {
 
         if (isEmptyBorder) {
             super.setBorder(BorderFactory.createEmptyBorder());
