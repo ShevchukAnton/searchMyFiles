@@ -38,20 +38,20 @@ public class MainFrame extends JFrame {
         openFile = new Button("Open File", new Point(425, 210), new Point(125, 20), null, null, false);
         container.add(openFile);
 
-        searchInput = new TextField("", new Point(0, 50), new Point(400, 30), false, true, true, null);
+        searchInput = new TextField("", new Point(0, 50), new Point(400, 30), false, true, true);
         container.add(searchInput);
-        searchInFolder = new TextField("", new Point(0, 150), new Point(400, 30), false, false, false, null);
+        searchInFolder = new TextField("", new Point(0, 150), new Point(400, 30), false, false, false);
         container.add(searchInFolder);
 
         enableFolder = new Checkbox(new Point(0, 125), new Point(20, 20));
         container.add(enableFolder);
 
         TextField checkboxLabel = new TextField("Search in :", new Point(20, 125), new Point(80, enableFolder.getHeight()),
-                true, true, false, null);
+                true, true, false);
         container.add(checkboxLabel);
-        selectedFolder = new TextField("", new Point(200, 125), new Point(350, 20), true, true, false, null);
+        selectedFolder = new TextField("", new Point(200, 125), new Point(350, 20), true, true, false);
         container.add(selectedFolder);
-        TextField outputLabel = new TextField("Results :", new Point(0, 210), new Point(70, 20), true, true, false, null);
+        TextField outputLabel = new TextField("Results :", new Point(0, 210), new Point(70, 20), true, true, false);
         container.add(outputLabel);
 
         listModel = new DefaultListModel();
