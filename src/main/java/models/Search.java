@@ -37,6 +37,7 @@ public class Search {
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory()) {
+                    paths.add(file.getAbsolutePath());
                     find(name, file.toString());
                 } else if (file.getName().toLowerCase().contains(name)) {
                     paths.add(file.getAbsolutePath());

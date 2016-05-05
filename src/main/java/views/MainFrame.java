@@ -17,8 +17,10 @@ public class MainFrame extends JFrame {
     private TextField selectedFolder;
     private TextField searchInput;
     private TextField searchInFolder;
+    private TextField fileActionError;
+    private TextField searchError;
     private DefaultListModel listModel;
-    private JList list;
+    private ListOfElements listOfElements;
 
     public MainFrame() {
         super.setTitle("Search My Files");
@@ -38,9 +40,9 @@ public class MainFrame extends JFrame {
         openFile = new Button("Open File", new Point(425, 210), new Point(125, 20), null, null, false);
         container.add(openFile);
 
-        searchInput = new TextField("", new Point(0, 50), new Point(400, 30), false, true, true);
+        searchInput = new TextField(null, new Point(0, 50), new Point(400, 30), false, true, true);
         container.add(searchInput);
-        searchInFolder = new TextField("", new Point(0, 150), new Point(400, 30), false, false, false);
+        searchInFolder = new TextField(null, new Point(0, 150), new Point(400, 30), false, false, false);
         container.add(searchInFolder);
 
         enableFolder = new Checkbox(new Point(0, 125), new Point(20, 20));
@@ -49,17 +51,18 @@ public class MainFrame extends JFrame {
         TextField checkboxLabel = new TextField("Search in :", new Point(20, 125), new Point(80, enableFolder.getHeight()),
                 true, true, false);
         container.add(checkboxLabel);
-        selectedFolder = new TextField("", new Point(200, 125), new Point(350, 20), true, true, false);
+        selectedFolder = new TextField(null, new Point(200, 125), new Point(350, 20), true, true, false);
         container.add(selectedFolder);
         TextField outputLabel = new TextField("Results :", new Point(0, 210), new Point(70, 20), true, true, false);
         container.add(outputLabel);
+        fileActionError = new TextField(null, new Point(0, 180), new Point(550, 20), true, true, false);
+        container.add(fileActionError);
+        searchError = new TextField(null, new Point(0, 100), new Point(550, 20), true, true, false);
+        container.add(searchError);
 
         listModel = new DefaultListModel();
-        list = new JList(listModel);
-        list.setLocation(new Point(0, 230));
-        list.setSize(550, 220);
-        list.setBackground(new Color(255, 255, 255));
-        container.add(list);
+        listOfElements = new ListOfElements(listModel, new Point(0, 230), new Point(550, 220));
+        container.add(listOfElements);
 
         add(container);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -109,7 +112,15 @@ public class MainFrame extends JFrame {
         return listModel;
     }
 
-    public JList getList() {
-        return list;
+    public ListOfElements getListOfElements() {
+        return listOfElements;
+    }
+
+    public TextField getFileActionError() {
+        return fileActionError;
+    }
+
+    public TextField getSearchError() {
+        return searchError;
     }
 }

@@ -1,9 +1,9 @@
 package Controllers;
 
 import models.Search;
+import views.*;
 import views.Button;
 import views.Checkbox;
-import views.MainFrame;
 import views.TextField;
 
 import javax.swing.*;
@@ -27,9 +27,9 @@ public class Controller{
     private TextField sFolder = frame.getSelectedFolder();
     private TextField searchInput = frame.getSearchInput();
     private TextField folderSearchInput = frame.getSearchInFolder();
+    private TextField searchError = frame.getSearchError();
     private Search searcher = new Search();
-    private JList outList = frame.getList();
-
+    private ListOfElements outListOfElements = frame.getListOfElements();
     private DefaultListModel model = frame.getListModel();
 
     public Controller() {
@@ -44,11 +44,11 @@ public class Controller{
                     folderSearchInput.setEnabled(true);
                 } else {
                     folder.setEnabled(false);
-                    sFolder.setText("");
+                    sFolder.setText(null);
                     folderSearch.setEnabled(false);
                     folderSearchInput.setEditable(false);
                     folderSearchInput.setEnabled(false);
-                    folderSearchInput.setText("");
+                    folderSearchInput.setText(null);
                 }
             }
         });
@@ -69,49 +69,84 @@ public class Controller{
         Button search = frame.getSearch();
         search.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String input = searchInput.getText();
-                searcher.find(input, null);
-                List<String> results = searcher.getPaths();
-                for (String s : results) {
-                    model.addElement(s);
+                if (searchInput.getText().length() <= 0) {
+                    searchError.setText("Enter what do you want to search");
+                    searchError.setBackground(new Color(253, 152, 152));
+                } else {
+                    searchError.setText(null);
+                    searchError.setBackground(new Color(236, 236, 236));
+                    String input = searchInput.getText();
+                    searcher.find(input, null);
+                    List<String> results = searcher.getPaths();
+                    for (String s : results) {
+                        model.addElement(s);
+                    }
+                    frame.getCopyPath().setEnabled(true);
+                    frame.getCopyPath().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    frame.getOpenFile().setEnabled(true);
+                    frame.getOpenFile().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 }
-                frame.getCopyPath().setEnabled(true);
-                frame.getOpenFile().setEnabled(true);
             }
         });
 
         folderSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String input = frame.getSearchInFolder().getText();
-                String src = sFolder.getText();
-                searcher.find(input, src);
-                List<String> results = searcher.getPaths();
-                for (String s : results) {
-                    model.addElement(s);
+                if (frame.getSelectedFolder().getText().length() <= 0) {
+                    searchError.setText("Select directory where you want to search file!");
+                    searchError.setBackground(new Color(253, 152, 152));
+                } else if (frame.getSearchInFolder().getText().length() <= 0) {
+                    searchError.setText("Enter what do you want to search");
+                    searchError.setBackground(new Color(253, 152, 152));
+                } else {
+                    searchError.setText(null);
+                    searchError.setBackground(new Color(236, 236, 236));
+                    String input = frame.getSearchInFolder().getText();
+                    String src = sFolder.getText();
+                    searcher.find(input, src);
+                    List<String> results = searcher.getPaths();
+                    for (String s : results) {
+                        model.addElement(s);
+                    }
+                    frame.getCopyPath().setEnabled(true);
+                    frame.getCopyPath().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    frame.getOpenFile().setEnabled(true);
+                    frame.getOpenFile().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 }
-                frame.getCopyPath().setEnabled(true);
-                frame.getOpenFile().setEnabled(true);
             }
         });
 
         frame.getOpenFile().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String file = outList.getSelectedValue().toString();
-                try {
-                    //noinspection Since15
-                    Desktop.getDesktop().open(new File(file));
-                } catch (IOException e1) {
-                    e1.printStackTrace();
+                if (outListOfElements.getSelectedValue() == null) {
+                    frame.getFileActionError().setText("Select file that you want to open & then press button");
+                    frame.getFileActionError().setBackground(new Color(253, 152, 152));
+                } else {
+                    frame.getFileActionError().setBackground(new Color(236, 236, 236));
+                    frame.getFileActionError().setText(null);
+                    String file = outListOfElements.getSelectedValue().toString();
+                    try {
+                        //noinspection Since15
+                        Desktop.getDesktop().open(new File(file));
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             }
         });
 
         frame.getCopyPath().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String file = outList.getSelectedValue().toString();
-                StringSelection selection = new StringSelection(file);
-                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                clipboard.setContents(selection, selection);
+                if (outListOfElements.getSelectedValue() == null) {
+                    frame.getFileActionError().setText("There is nothing to copy. First select file.");
+                    frame.getFileActionError().setBackground(new Color(253, 152, 152));
+                } else {
+                    frame.getFileActionError().setBackground(new Color(236, 236, 236));
+                    frame.getFileActionError().setText(null);
+                    String file = outListOfElements.getSelectedValue().toString();
+                    StringSelection selection = new StringSelection(file);
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard.setContents(selection, selection);
+                }
             }
         });
 
