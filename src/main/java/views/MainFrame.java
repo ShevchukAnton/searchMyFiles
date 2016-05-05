@@ -12,11 +12,13 @@ public class MainFrame extends JFrame {
     private Button folderSearch;
     private Button folder;
     private Button copyPath;
-    private Button openFolder;
+    private Button openFile;
     private Checkbox enableFolder;
     private TextField selectedFolder;
     private TextField searchInput;
-    private TextField outputField;
+    private TextField searchInFolder;
+    private DefaultListModel listModel;
+    private JList list;
 
     public MainFrame() {
         super.setTitle("Search My Files");
@@ -33,12 +35,12 @@ public class MainFrame extends JFrame {
         container.add(folder);
         copyPath = new Button("Copy Path", new Point(310, 210), new Point(110, 20), null, null, false);
         container.add(copyPath);
-        openFolder = new Button("Open Folder", new Point(425, 210), new Point(125, 20), null, null, false);
-        container.add(openFolder);
+        openFile = new Button("Open File", new Point(425, 210), new Point(125, 20), null, null, false);
+        container.add(openFile);
 
         searchInput = new TextField("", new Point(0, 50), new Point(400, 30), false, true, true, null);
         container.add(searchInput);
-        TextField searchInFolder = new TextField("", new Point(0, 150), new Point(400, 30), false, false, false, null);
+        searchInFolder = new TextField("", new Point(0, 150), new Point(400, 30), false, false, false, null);
         container.add(searchInFolder);
 
         enableFolder = new Checkbox(new Point(0, 125), new Point(20, 20));
@@ -51,12 +53,16 @@ public class MainFrame extends JFrame {
         container.add(selectedFolder);
         TextField outputLabel = new TextField("Results :", new Point(0, 210), new Point(70, 20), true, true, false, null);
         container.add(outputLabel);
-        outputField = new TextField("", new Point(0, 230), new Point(550, 220), false, false, false,
-                new Color(255, 255, 255));
-        container.add(outputField);
+
+        listModel = new DefaultListModel();
+        list = new JList(listModel);
+        list.setLocation(new Point(0, 230));
+        list.setSize(550, 220);
+        list.setBackground(new Color(255, 255, 255));
+        container.add(list);
 
         add(container);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(550, 450));
         setResizable(false);
         pack();
@@ -79,8 +85,8 @@ public class MainFrame extends JFrame {
         return copyPath;
     }
 
-    public Button getOpenFolder() {
-        return openFolder;
+    public Button getOpenFile() {
+        return openFile;
     }
 
     public Checkbox getEnableFolder() {
@@ -95,7 +101,15 @@ public class MainFrame extends JFrame {
         return searchInput;
     }
 
-    public TextField getOutputField() {
-        return outputField;
+    public TextField getSearchInFolder() {
+        return searchInFolder;
+    }
+
+    public DefaultListModel getListModel() {
+        return listModel;
+    }
+
+    public JList getList() {
+        return list;
     }
 }

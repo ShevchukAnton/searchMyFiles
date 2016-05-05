@@ -17,6 +17,9 @@ public class Button extends JButton {
         if (icon != null) {
             super.setIcon(icon);
         }
+        if (isEnabled) {
+            super.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        }
         super.setText(label);
         super.setSize(size.x, size.y);
         super.setLocation(location);
