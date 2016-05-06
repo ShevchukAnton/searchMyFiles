@@ -92,7 +92,7 @@ public class Controller{
         folderSearch.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (frame.getSelectedFolder().getText().length() <= 0) {
-                    searchError.setText("Select directory where you want to search file!");
+                    searchError.setText("Select directory where do you want to search file!");
                     searchError.setBackground(new Color(253, 152, 152));
                 } else if (frame.getSearchInFolder().getText().length() <= 0) {
                     searchError.setText("Enter what do you want to search");
@@ -124,11 +124,18 @@ public class Controller{
                     frame.getFileActionError().setBackground(new Color(236, 236, 236));
                     frame.getFileActionError().setText(null);
                     String file = outListOfElements.getSelectedValue().toString();
-                    try {
-                        //noinspection Since15
-                        Desktop.getDesktop().open(new File(file));
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
+                    //noinspection Since15
+                    if (!Desktop.isDesktopSupported()) {
+                        frame.getFileActionError().setText("Your platform doesn't support this function." +
+                                " Copy file path manually");
+                        frame.getFileActionError().setBackground(new Color(57, 253, 64));
+                    } else {
+                        try {
+                            //noinspection Since15
+                            Desktop.getDesktop().open(new File(file));
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
                     }
                 }
             }
