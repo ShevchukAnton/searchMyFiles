@@ -8,9 +8,7 @@ import java.awt.*;
  */
 public class ListOfElements extends JList{
 
-    public ListOfElements(DefaultListModel model, Point location, Point size) {
+    public ListOfElements(DefaultListModel model) {
         super(model);
-        super.setLocation(location);
-        super.setSize(size.x, size.y);
     }
 }
