@@ -21,7 +21,6 @@ public class MainFrame extends JFrame {
     private TextField searchError;
     private DefaultListModel listModel;
     private ListOfElements listOfElements;
-    private ScrollPanel output;
 
     public MainFrame() {
         super.setTitle("Search My Files");
@@ -65,7 +64,7 @@ public class MainFrame extends JFrame {
         listOfElements = new ListOfElements(listModel);
         container.add(listOfElements);
 
-        output = new ScrollPanel(listOfElements, new Point(0, 230), new Point(550, 220));
+        ScrollPanel output = new ScrollPanel(listOfElements, new Point(0, 230), new Point(550, 220));
         container.add(output);
 
         add(container);
@@ -126,9 +125,5 @@ public class MainFrame extends JFrame {
 
     public TextField getSearchError() {
         return searchError;
-    }
-
-    public ScrollPanel getOutput() {
-        return output;
     }
 }

@@ -106,10 +106,14 @@
                         </goals>
                         <configuration>
                             <headerType>gui</headerType>
-                            <jar>${project.basedir}/target/searchMyFiles-1.0-SNAPSHOT.jar</jar>
+                            <jar>${project.basedir}/target/${artifactId}-${version}-shaded.jar</jar>
                             <outfile>${project.basedir}/target/searchMyFile.exe</outfile>
                             <downloadUrl>http://java.com/download</downloadUrl>
-                            <icon>src/main/resources/search_icon.png</icon>
+                            <classPath>
+                                <mainClass>Application</mainClass>
+                                <preCp>anything</preCp>
+                            </classPath>
+                            <icon>src/main/resources/app_icon.ico</icon>
                             <jre>
                                 <minVersion>1.6.0</minVersion>
                                 <jdkPreference>preferJre</jdkPreference>
