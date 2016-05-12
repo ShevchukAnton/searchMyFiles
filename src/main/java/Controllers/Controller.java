@@ -73,6 +73,7 @@ public class Controller{
                     searchError.setText("Enter what do you want to search");
                     searchError.setBackground(new Color(253, 152, 152));
                 } else {
+                    model.clear();
                     searchError.setText(null);
                     searchError.setBackground(new Color(236, 236, 236));
                     String input = searchInput.getText();
@@ -81,6 +82,7 @@ public class Controller{
                     for (String s : results) {
                         model.addElement(s);
                     }
+                    results.clear();
                     frame.getCopyPath().setEnabled(true);
                     frame.getCopyPath().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     frame.getOpenFile().setEnabled(true);
@@ -98,6 +100,7 @@ public class Controller{
                     searchError.setText("Enter what do you want to search");
                     searchError.setBackground(new Color(253, 152, 152));
                 } else {
+                    model.clear();
                     searchError.setText(null);
                     searchError.setBackground(new Color(236, 236, 236));
                     String input = frame.getSearchInFolder().getText();
@@ -107,6 +110,7 @@ public class Controller{
                     for (String s : results) {
                         model.addElement(s);
                     }
+                    results.clear();
                     frame.getCopyPath().setEnabled(true);
                     frame.getCopyPath().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     frame.getOpenFile().setEnabled(true);
