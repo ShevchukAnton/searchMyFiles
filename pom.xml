@@ -12,10 +12,6 @@
     <properties>
         <jdk.version>1.7</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- dependencies -->
-        <common-lang.version>2.1</common-lang.version>
-        <plexus-utils.version>1.1</plexus-utils.version>
-        <testng.version>6.9.10</testng.version>
         <!-- plugins -->
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
@@ -23,26 +19,6 @@
         <maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
         <maven-assembly-plugin.version>2.5.3</maven-assembly-plugin.version>
     </properties>
-
-
-    <dependencies>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${common-lang.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-utils</artifactId>
-            <version>${plexus-utils.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testng.version}</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
 
 
     <build>
@@ -133,8 +109,8 @@
                             <directory>${project.basedir}/target</directory>
                             <followSymlinks>false</followSymlinks>
                             <excludes>
-                                <exclude>*.jar</exclude>
-                                <exclude>*.exe</exclude>
+                                <exclude>${artifactId}.jar</exclude>
+                                <exclude>${artifactId}.exe</exclude>
                             </excludes>
                         </fileset>
                     </filesets>
