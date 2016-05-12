@@ -3,34 +3,66 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>coop</groupId>
     <artifactId>searchMyFiles</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
+        <jdk.version>1.7</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- dependencies -->
+        <common-lang.version>2.1</common-lang.version>
+        <plexus-utils.version>1.1</plexus-utils.version>
+        <testng.version>6.9.10</testng.version>
+        <!-- plugins -->
+        <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
+        <launch4j-maven-plugin.version>1.7.10</launch4j-maven-plugin.version>
+        <maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
+        <maven-assembly-plugin.version>2.5.3</maven-assembly-plugin.version>
     </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>${common-lang.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>${plexus-utils.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.10</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <testSourceDirectory>/src/test/java</testSourceDirectory>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
+                <version>${maven-jar-plugin.version}</version>
                 <configuration>
+                    <finalName>${project.artifactId}</finalName>
                     <archive>
                         <manifest>
                             <mainClass>Application</mainClass>
@@ -38,18 +70,56 @@
                     </archive>
                 </configuration>
             </plugin>
+
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.19.1</version>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>${launch4j-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>l4j-gui</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <headerType>gui</headerType>
+                            <outfile>target/${artifactId}.exe</outfile>
+                            <jar>target/${artifactId}.jar</jar>
+                            <errTitle>${artifactId} error</errTitle>
+                            <classPath>
+                                <mainClass>Application</mainClass>
+                            </classPath>
+                            <icon><!-- You should use ICO format instead PNG format --></icon>
+                            <jre>
+                                <minVersion>1.5.0</minVersion>
+                                <maxVersion>1.8.0</maxVersion>
+                                <initialHeapSize>128</initialHeapSize>
+                                <maxHeapSize>1024</maxHeapSize>
+                            </jre>
+                            <versionInfo>
+                                <fileVersion>1.0.0.0</fileVersion>
+                                <txtFileVersion>1.0.0.0</txtFileVersion>
+                                <fileDescription>${project.name}</fileDescription>
+                                <copyright>2016 Antonio.com</copyright>
+                                <productVersion>1.0.0.0</productVersion>
+                                <txtProductVersion>1.0.0.0</txtProductVersion>
+                                <productName>${project.name}</productName>
+                                <internalName>searcher</internalName>
+                                <originalFilename>searchMyFile.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-clean-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>${maven-clean-plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>auto-clean</id>
+                        <id>Clean up target folder</id>
                         <phase>package</phase>
                         <goals>
                             <goal>clean</goal>
@@ -63,72 +133,13 @@
                             <directory>${project.basedir}/target</directory>
                             <followSymlinks>false</followSymlinks>
                             <excludes>
-                                <exclude>**/surefire-reports/**</exclude>
                                 <exclude>*.jar</exclude>
                                 <exclude>*.exe</exclude>
                             </excludes>
                         </fileset>
                     </filesets>
+                    <verbose>true</verbose>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4.3</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <shadedArtifactAttached>true</shadedArtifactAttached>
-                    <shadedClassifierName>shaded</shadedClassifierName>
-                    <transformers>
-                        <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>Application</mainClass>
-                        </transformer>
-                    </transformers>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.akathist.maven.plugins.launch4j</groupId>
-                <artifactId>launch4j-maven-plugin</artifactId>
-                <version>1.7.10</version>
-                <executions>
-                    <execution>
-                        <id>l4j-clui</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>launch4j</goal>
-                        </goals>
-                        <configuration>
-                            <headerType>gui</headerType>
-                            <jar>${project.basedir}/target/searchMyFiles-1.0-SNAPSHOT.jar</jar>
-                            <outfile>${project.basedir}/target/searchMyFile.exe</outfile>
-                            <downloadUrl>http://java.com/download</downloadUrl>
-                            <icon>src/main/resources/search_icon.png</icon>
-                            <jre>
-                                <minVersion>1.6.0</minVersion>
-                                <jdkPreference>preferJre</jdkPreference>
-                            </jre>
-                            <versionInfo>
-                                <fileVersion>1.0.0.0</fileVersion>
-                                <txtFileVersion>${project.version}</txtFileVersion>
-                                <fileDescription>${project.name}</fileDescription>
-                                <copyright>2016 Antonio.com</copyright>
-                                <productVersion>1.0.0.0</productVersion>
-                                <txtProductVersion>1.0.0.0</txtProductVersion>
-                                <productName>${project.name}</productName>
-                                <companyName>Antonio.com</companyName>
-                                <internalName>searcher</internalName>
-                                <originalFilename>searchMyFile.exe</originalFilename>
-                            </versionInfo>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
