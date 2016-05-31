@@ -28,7 +28,7 @@ public class Controller{
     private TextField searchInput = frame.getSearchInput();
     private TextField folderSearchInput = frame.getSearchInFolder();
     private TextField searchError = frame.getSearchError();
-    private Search searcher = new Search();
+    private Search searcher;
     private ListOfElements outListOfElements = frame.getListOfElements();
     private DefaultListModel model = frame.getListModel();
 
@@ -66,7 +66,7 @@ public class Controller{
             }
         });
 
-        Button search = frame.getSearch();
+        final Button search = frame.getSearch();
         search.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (searchInput.getText().length() <= 0) {
@@ -77,7 +77,8 @@ public class Controller{
                     searchError.setText(null);
                     searchError.setBackground(new Color(236, 236, 236));
                     String input = searchInput.getText();
-                    searcher.find(input, null);
+                    searcher = new Search(input, null);
+                    searcher.exec();
                     List<String> results = searcher.getPaths();
                     for (String s : results) {
                         model.addElement(s);
@@ -105,7 +106,8 @@ public class Controller{
                     searchError.setBackground(new Color(236, 236, 236));
                     String input = frame.getSearchInFolder().getText();
                     String src = sFolder.getText();
-                    searcher.find(input, src);
+                    searcher = new Search(input, src);
+                    searcher.exec();
                     List<String> results = searcher.getPaths();
                     for (String s : results) {
                         model.addElement(s);
