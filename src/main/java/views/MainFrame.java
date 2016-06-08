@@ -69,7 +69,7 @@ public class MainFrame extends JFrame {
 
         add(container);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(550, 450));
+        setPreferredSize(new Dimension(555, 460));
         setResizable(false);
         pack();
         setVisible(true);
