@@ -13,10 +13,10 @@ import java.util.concurrent.Future;
  * @date 26.04.16.
  */
 public class Search {
-    private  List<String> paths;
+    private List<String> paths;
     private List<String> dirs;
-    private  String name;
-    private  String dir;
+    private String name;
+    private String dir;
 
     public Search(String name, String dir) {
         dirs = new ArrayList<>();
@@ -52,7 +52,12 @@ public class Search {
     private void index() {
         File fileDir;
         if (dir == null) {
-            fileDir = new File(System.getProperty("user.home"));
+            String isWindows = System.getProperty("os.name");
+            if (isWindows.contains("Windows")) {
+                fileDir = new File("C:\\");
+            } else {
+                fileDir = new File(System.getProperty("user.home"));
+            }
         } else {
             fileDir = new File(dir);
         }
