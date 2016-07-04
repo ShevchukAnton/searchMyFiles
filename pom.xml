@@ -60,9 +60,9 @@
                         </goals>
                         <configuration>
                             <headerType>gui</headerType>
-                            <outfile>target/${artifactId}.exe</outfile>
-                            <jar>target/${artifactId}.jar</jar>
-                            <errTitle>${artifactId} error</errTitle>
+                            <outfile>target/${project.artifactId}.exe</outfile>
+                            <jar>target/${project.artifactId}.jar</jar>
+                            <errTitle>${project.artifactId} error</errTitle>
                             <classPath>
                                 <mainClass>Application</mainClass>
                             </classPath>
@@ -109,8 +109,8 @@
                             <directory>${project.basedir}/target</directory>
                             <followSymlinks>false</followSymlinks>
                             <excludes>
-                                <exclude>${artifactId}.jar</exclude>
-                                <exclude>${artifactId}.exe</exclude>
+                                <exclude>${project.artifactId}.jar</exclude>
+                                <exclude>${project.artifactId}.exe</exclude>
                             </excludes>
                         </fileset>
                     </filesets>
